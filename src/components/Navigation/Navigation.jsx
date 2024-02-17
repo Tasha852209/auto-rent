@@ -1,15 +1,22 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export const Navigation = () => {
+import './Navigation.scss';
+
+const Navigation = () => {
   return (
     <>
-      <header>
-        <nav>
-          <NavLink to="/">Home</NavLink>
+      <header className="blend nav">
+        <nav className="nav_list">
+          <NavLink className="nav_link" to="/">
+            Home
+          </NavLink>
 
-          <NavLink to="/catalog">Catalog</NavLink>
-          <NavLink to="/favorites">Favorites</NavLink>
+          <NavLink className="nav_link" to="/catalog">
+            Catalog
+          </NavLink>
+          <NavLink className="nav_link" to="/favorites">
+            Favorites
+          </NavLink>
         </nav>
       </header>
     </>

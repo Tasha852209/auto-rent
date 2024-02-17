@@ -1,27 +1,41 @@
-import { Suspense, lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Layout from './Layout/Layout';
+import { Route, Routes } from "react-router-dom";
+import { lazy } from "react";
 
-const HomePage = lazy(() => import('pages/HomePage'));
-const CatalogPage = lazy(() => import('pages/CatalogPage'));
-const FavoritesPage = lazy(() => import('pages/FavoritesPage'));
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const appRoutes = [
-  { path: '/', element: <HomePage /> },
-  { path: '/catalog', element: <CatalogPage /> },
-  { path: '/favorites', element: <FavoritesPage /> },
-];
+import Layout from "./Layout/Layout";
 
-export const App = () => {
+const Home = lazy(() => import("pages/Home/Home"));
+const Catalog = lazy(() => import("pages/Catalog/Catalog"));
+const Favorites = lazy(() => import("pages/Favorites/Favorites"));
+
+function App() {
   return (
-    <Suspense>
+    <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {appRoutes.map(({ path, element }) => (
-            <Route key={path} path={path} element={element} />
-          ))}
+          <Route index element={<Home />} />
+          <Route path="catalog" element={<Catalog />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="*" element={<Home />} />
         </Route>
       </Routes>
-    </Suspense>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        // pauseOnHover
+        transition={Slide}
+        theme="light"
+      />
+    </>
   );
-};
+}
+
+export default App;

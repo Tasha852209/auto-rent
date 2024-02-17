@@ -1,0 +1,20 @@
+@import './constants.scss';
+
+.hero__container {
+  position: relative;
+
+  display: grid;
+  align-content: center;
+  justify-content: start;
+
+  gap: 24px;
+  padding-left: 44px;
+
+  margin-left: 12px;
+  margin-right: 12px;
+
+  height: 444px;
+  border-radius: 24px;
+
+  background-color: #eff0f0;
+}
