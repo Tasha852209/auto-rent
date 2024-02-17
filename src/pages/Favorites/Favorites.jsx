@@ -1,8 +1,9 @@
-import { Text, Wrapper, WrapperList } from './Favorite.styled';
-import { useEffect, useState } from 'react';
+import CarItem from 'components/CarItem/CarItem';
+import { Wrapper, WrapperList, Text } from './Favorites.styled';
 import { useSelector } from 'react-redux';
-import { selectFavorites } from '../../redux/favorites/favoritesSelectors';
-import AdvertsList from 'components/AdvertsList/AdvertsList';
+import { useEffect, useState } from 'react';
+import { selectFavorites } from '../../redux/selectors';
+import { LoadMore } from 'pages/Catalog/Catalog.styled';
 
 export default function Favorites() {
   const favoriteCars = useSelector(selectFavorites);
@@ -26,14 +27,16 @@ export default function Favorites() {
       <Wrapper>
         <WrapperList>
           {cars.length ? (
-            <AdvertsList list={cars} />
+            cars.map((favorite, index) => (
+              <CarItem key={index} data={favorite} />
+            ))
           ) : (
             <Text>Your favorites are currently empty...</Text>
           )}
           {favoriteCars.favorites.length > cars.length && (
-            <button type="button" onClick={loadMore}>
+            <LoadMore variant="text" onClick={loadMore}>
               Load more
-            </button>
+            </LoadMore>
           )}
         </WrapperList>
       </Wrapper>

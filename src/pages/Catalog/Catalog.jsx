@@ -1,53 +1,32 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import CarItem from 'components/CarItem/CarItem';
+import { WrapperFilter, WrapperList, LoadMore } from './Catalog.styled';
+import Filter from 'components/Filter/Filter';
 
-import './Catalog.scss';
-import { selectAdvertsFilter } from '../../redux/filters/filtersSelectors';
 import {
   useGetAdvertsQuery,
   useGetCarsByPageQuery,
-} from '../../redux/adverts/advertsSlice';
-import { getFilteredAdverts } from 'utils/getFilteredAdverts';
-import { createArrayWithStep } from 'utils/createArrayWithStep';
-import Section from 'components/kit/Section/Section';
-import Loader from 'components/kit/Loader/Loader';
-import Filter from 'components/Filter/Filter';
-import AdvertsList from 'components/AdvertsList/AdvertsList';
+} from '../../redux/operations';
+import { Loader } from 'components/Loader/Loader';
 
-const Catalog = () => {
-  const filter = useSelector(selectAdvertsFilter);
-
-  const { data: adverts } = useGetAdvertsQuery();
+export default function Catalog() {
+  const [page, setPage] = useState(1);
   const [allCars, setAllCars] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading } = useGetCarsByPageQuery(currentPage);
+  const { data, error, isLoading, isFetching } = useGetCarsByPageQuery(page);
+  const { data: allAdverts } = useGetAdvertsQuery();
 
-  let dataFilters = {
-    brands: [],
-    prices: [],
+  const [filters, setFilters] = useState({
+    make: '',
+    filteredPrices: [],
+    minMileage: '',
+    maxMileage: '',
+  });
+  const [filteredAdverts, setFilteredAdverts] = useState(null);
+  const [isFiltering, setIsFiltering] = useState(false);
+
+  const loadMore = () => {
+    setPage(page + 1);
   };
-
-  const limitAdverts = 12;
-  let totalAdverts = 0;
-  let totalPages = 0;
-
-  if (!isLoading && adverts) {
-    dataFilters = {
-      brands: ['All', ...new Set(adverts.map(({ make }) => make))],
-      prices: createArrayWithStep(
-        0,
-        Math.max(
-          ...new Set(
-            adverts.map(({ rentalPrice }) => rentalPrice.replace(/(\$)/, ''))
-          )
-        ),
-        10
-      ),
-    };
-
-    totalAdverts = adverts.length;
-    totalPages = !totalAdverts ? 1 : Math.ceil(totalAdverts / limitAdverts);
-  }
 
   useEffect(() => {
     if (data) {
@@ -55,37 +34,95 @@ const Catalog = () => {
     }
   }, [data]);
 
-  const filteredAdverts = useMemo(() => {
-    return getFilteredAdverts(allCars, filter);
-  }, [allCars, filter]);
+  useEffect(() => {
+    if (isFiltering) {
+      if (
+        filters.make ||
+        filters.filteredPrices.length > 0 ||
+        filters.minMileage ||
+        filters.maxMileage
+      ) {
+        const filteredAdverts = allAdverts.filter(advert => {
+          if (filters.make && advert.make !== filters.make.value) {
+            return false;
+          }
+          if (
+            filters.filteredPrices.length > 0 &&
+            !filters.filteredPrices.some(
+              priceObj => priceObj.value === advert.rentalPrice.replace('$', '')
+            )
+          ) {
+            return false;
+          }
+          if (filters.minMileage && advert.mileage < filters.minMileage) {
+            return false;
+          }
+          if (filters.maxMileage && advert.mileage > filters.maxMileage) {
+            return false;
+          }
+          return true;
+        });
 
-  const handleClickLoadMore = () => {
-    setCurrentPage(prev => prev + 1);
-    // window.scrollTo(0, 0);
-  };
+        setFilteredAdverts(filteredAdverts);
+      } else {
+        setFilteredAdverts([]);
+      }
+    }
+  }, [filters, allAdverts, isFiltering]);
+
+  const makes = allAdverts
+    ? [...new Set(allAdverts.map(advert => advert.make))]
+    : [];
+  const prices = allAdverts
+    ? [
+        ...new Set(
+          allAdverts.map(advert => advert.rentalPrice.replace('$', ''))
+        ),
+      ]
+    : [];
+  const mileage = allAdverts
+    ? [...new Set(allAdverts.map(advert => advert.mileage))]
+    : [];
+  const minMileage = Math.min(...mileage);
+  const maxMileage = Math.max(...mileage);
 
   return (
-    <Section>
-      {isLoading && <Loader />}
-      {!isLoading && (
-        <>
-          <Filter filtersList={dataFilters} />
-          <AdvertsList list={filteredAdverts} />
-          <div className="buttons__wrapper">
-            {totalPages > currentPage && (
-              <button
-                type="button"
-                className="load-more__btn"
-                onClick={handleClickLoadMore}
-              >
-                Load more
-              </button>
-            )}
-          </div>
-        </>
-      )}
-    </Section>
+    <>
+      <WrapperFilter>
+        <Filter
+          makes={makes}
+          prices={prices}
+          minMileage={minMileage}
+          maxMileage={maxMileage}
+          onFilterChange={newFilters => {
+            setFilters(newFilters);
+            setIsFiltering(true);
+          }}
+          filters={filters}
+        />
+      </WrapperFilter>
+      <WrapperList>
+        {isFiltering ? (
+          filteredAdverts !== null && filteredAdverts.length > 0 ? (
+            filteredAdverts.map((car, index) => (
+              <CarItem key={index} data={car} />
+            ))
+          ) : (
+            <div>No matches found based on the chosen criteria.</div>
+          )
+        ) : error ? (
+          <>Oops, there was an error...</>
+        ) : isLoading ? (
+          <Loader />
+        ) : allCars.length > 0 ? (
+          allCars.map((car, index) => <CarItem key={index} data={car} />)
+        ) : null}
+        {!isFiltering && data && data.length >= 12 && (
+          <LoadMore variant="text" onClick={loadMore} disabled={isFetching}>
+            Load more
+          </LoadMore>
+        )}
+      </WrapperList>
+    </>
   );
-};
-
-export default Catalog;
+}

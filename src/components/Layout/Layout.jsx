@@ -1,23 +1,19 @@
-import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 
+import { Wrapper } from './Layout.styled';
+import { Loader } from '../Loader/Loader';
 import Header from './Header/Header';
 
-import Loader from 'components/kit/Loader/Loader';
-
-import './Layout.scss';
-
-const Layout = () => {
+export default function Layout() {
   return (
-    <div className="wrapper">
-      <Header />
-      <Suspense fallback={<Loader />}>
-        <main>
+    <>
+      <Wrapper>
+        <Header />
+        <Suspense fallback={<Loader />}>
           <Outlet />
-        </main>
-      </Suspense>
-    </div>
+        </Suspense>
+      </Wrapper>
+    </>
   );
-};
-
-export default Layout;
+}

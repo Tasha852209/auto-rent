@@ -1,11 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { advertsApiSlice } from './adverts/advertsSlice';
-import { filtersReducer } from './filters/filtersSlice';
-import favoritesReducer from './favorites/favoritesSlice';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
-import persistReducer from 'redux-persist/es/persistReducer';
 import {
   persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -14,9 +11,11 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import favoritesReducer from './slice';
+import { carsApi } from './operations';
+
 const reducers = combineReducers({
-  [advertsApiSlice.reducerPath]: advertsApiSlice.reducer,
-  filters: filtersReducer,
+  [carsApi.reducerPath]: carsApi.reducer,
   favorites: favoritesReducer,
 });
 
@@ -36,7 +35,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(advertsApiSlice.middleware),
+    }).concat(carsApi.middleware),
 });
 
 export let persistor = persistStore(store);

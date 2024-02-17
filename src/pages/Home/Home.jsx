@@ -1,14 +1,9 @@
-import Hero from 'components/Hero/Hero';
-import Section from 'components/kit/Section/Section';
+import { Text, Wrapper } from './Home.styled';
 
-const Home = () => {
+export default function Home() {
   return (
-    <>
-      <Section>
-        <Hero />
-      </Section>
-    </>
+    <Wrapper>
+      <Text>Feel the spirit of freedom on Ukrainian roads!</Text>
+    </Wrapper>
   );
-};
-
-export default Home;
+}
