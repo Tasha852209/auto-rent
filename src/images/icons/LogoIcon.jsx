@@ -1,7 +1,7 @@
 import * as React from 'react';
 const LogoIcon = () => (
   <svg
-    enable-background="new 0 0 1000 600"
+    enableBackground="new 0 0 1000 600"
     height="20"
     id="Shape_1_5_"
     overflow="visible"

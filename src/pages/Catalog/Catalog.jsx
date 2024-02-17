@@ -1,9 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import './Catalog.scss';
 import { selectAdvertsFilter } from '../../redux/filters/filtersSelectors';
-import { useGetAdvertsQuery } from '../../redux/adverts/advertsSlice';
+import {
+  useGetAdvertsQuery,
+  useGetCarsByPageQuery,
+} from '../../redux/adverts/advertsSlice';
 import { getFilteredAdverts } from 'utils/getFilteredAdverts';
 import { createArrayWithStep } from 'utils/createArrayWithStep';
 import Section from 'components/kit/Section/Section';
@@ -13,22 +16,22 @@ import AdvertsList from 'components/AdvertsList/AdvertsList';
 
 const Catalog = () => {
   const filter = useSelector(selectAdvertsFilter);
-  const { data: adverts, isLoading } = useGetAdvertsQuery();
 
+  const { data: adverts } = useGetAdvertsQuery();
+  const [allCars, setAllCars] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { data, isLoading } = useGetCarsByPageQuery(currentPage);
 
   let dataFilters = {
     brands: [],
     prices: [],
   };
-  let visibleAdverts = useMemo(() => {}, []);
 
   const limitAdverts = 12;
   let totalAdverts = 0;
   let totalPages = 0;
 
-  if (!isLoading) {
-    visibleAdverts = getFilteredAdverts(adverts, filter);
+  if (!isLoading && adverts) {
     dataFilters = {
       brands: ['All', ...new Set(adverts.map(({ make }) => make))],
       prices: createArrayWithStep(
@@ -42,22 +45,23 @@ const Catalog = () => {
       ),
     };
 
-    totalAdverts = visibleAdverts.length;
+    totalAdverts = adverts.length;
     totalPages = !totalAdverts ? 1 : Math.ceil(totalAdverts / limitAdverts);
   }
 
-  const currentAdvertsData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * limitAdverts;
-    const lastPageIndex = firstPageIndex + limitAdverts;
+  useEffect(() => {
+    if (data) {
+      setAllCars(prevCatalog => [...prevCatalog, ...data]);
+    }
+  }, [data]);
 
-    return visibleAdverts?.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, visibleAdverts]);
+  const filteredAdverts = useMemo(() => {
+    return getFilteredAdverts(allCars, filter);
+  }, [allCars, filter]);
 
   const handleClickLoadMore = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(prev => prev + 1);
-      window.scrollTo(0, 0);
-    }
+    setCurrentPage(prev => prev + 1);
+    // window.scrollTo(0, 0);
   };
 
   return (
@@ -66,7 +70,7 @@ const Catalog = () => {
       {!isLoading && (
         <>
           <Filter filtersList={dataFilters} />
-          <AdvertsList list={currentAdvertsData} />
+          <AdvertsList list={filteredAdverts} />
           <div className="buttons__wrapper">
             {totalPages > currentPage && (
               <button

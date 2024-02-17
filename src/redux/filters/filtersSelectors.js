@@ -1,1 +1,1 @@
-export const selectAdvertsFilter = (state) => state.filters;
+export const selectAdvertsFilter = state => state.filters;
