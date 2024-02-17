@@ -1,23 +1,25 @@
 {
   "files": {
     "main.css": "/auto-rent/static/css/main.fd6a9a43.css",
-    "main.js": "/auto-rent/static/js/main.e10866f2.js",
+    "main.js": "/auto-rent/static/js/main.26a28943.js",
     "static/css/638.6dc7ffc5.chunk.css": "/auto-rent/static/css/638.6dc7ffc5.chunk.css",
-    "static/js/638.1fc827e4.chunk.js": "/auto-rent/static/js/638.1fc827e4.chunk.js",
-    "static/css/245.2c0f7d48.chunk.css": "/auto-rent/static/css/245.2c0f7d48.chunk.css",
-    "static/js/245.3eb1b97a.chunk.js": "/auto-rent/static/js/245.3eb1b97a.chunk.js",
-    "static/js/733.2b09b497.chunk.js": "/auto-rent/static/js/733.2b09b497.chunk.js",
+    "static/js/638.897a3c84.chunk.js": "/auto-rent/static/js/638.897a3c84.chunk.js",
+    "static/css/577.9943eec0.chunk.css": "/auto-rent/static/css/577.9943eec0.chunk.css",
+    "static/js/577.b58d6e84.chunk.js": "/auto-rent/static/js/577.b58d6e84.chunk.js",
+    "static/css/724.5dc19ea0.chunk.css": "/auto-rent/static/css/724.5dc19ea0.chunk.css",
+    "static/js/724.828617f4.chunk.js": "/auto-rent/static/js/724.828617f4.chunk.js",
     "index.html": "/auto-rent/index.html",
     "main.fd6a9a43.css.map": "/auto-rent/static/css/main.fd6a9a43.css.map",
-    "main.e10866f2.js.map": "/auto-rent/static/js/main.e10866f2.js.map",
+    "main.26a28943.js.map": "/auto-rent/static/js/main.26a28943.js.map",
     "638.6dc7ffc5.chunk.css.map": "/auto-rent/static/css/638.6dc7ffc5.chunk.css.map",
-    "638.1fc827e4.chunk.js.map": "/auto-rent/static/js/638.1fc827e4.chunk.js.map",
-    "245.2c0f7d48.chunk.css.map": "/auto-rent/static/css/245.2c0f7d48.chunk.css.map",
-    "245.3eb1b97a.chunk.js.map": "/auto-rent/static/js/245.3eb1b97a.chunk.js.map",
-    "733.2b09b497.chunk.js.map": "/auto-rent/static/js/733.2b09b497.chunk.js.map"
+    "638.897a3c84.chunk.js.map": "/auto-rent/static/js/638.897a3c84.chunk.js.map",
+    "577.9943eec0.chunk.css.map": "/auto-rent/static/css/577.9943eec0.chunk.css.map",
+    "577.b58d6e84.chunk.js.map": "/auto-rent/static/js/577.b58d6e84.chunk.js.map",
+    "724.5dc19ea0.chunk.css.map": "/auto-rent/static/css/724.5dc19ea0.chunk.css.map",
+    "724.828617f4.chunk.js.map": "/auto-rent/static/js/724.828617f4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fd6a9a43.css",
-    "static/js/main.e10866f2.js"
+    "static/js/main.26a28943.js"
   ]
 }
