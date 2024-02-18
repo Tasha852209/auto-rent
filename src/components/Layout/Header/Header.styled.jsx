@@ -7,9 +7,9 @@ export const StyledHeader = styled.header`
     align-items: center;
     justify-content: center;
 
-    width: 100%;
+    /* width: 100%; */
     /* width: 1100px; */
-    color: #8a8a89;
+    color: #cdcdcd;
     padding: 12px;
 
     display: grid;

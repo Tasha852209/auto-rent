@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  font-weight: 500;
   display: flex;
   align-items: flex-end;
   margin-top: 30px;
@@ -10,6 +11,10 @@ export const Container = styled.div`
 export const SelectContainer = styled.div`
   display: flex;
   flex-direction: column;
+  .select {
+    font-size: 18px;
+    font-weight: 500;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -32,12 +37,13 @@ export const Label = styled.label`
 `;
 
 export const InputLeft = styled.input`
+  font-weight: 500;
   display: block;
   width: 160px;
   height: 48px;
   border: none;
   border-right: 1px solid rgba(138, 138, 137, 0.2);
-  background-color: rgba(247, 247, 251, 1);
+  background-color: #f7f7fb;
   border-radius: 14px 0 0 14px;
   padding-left: 0;
   text-indent: 70px;
@@ -51,11 +57,12 @@ export const InputLeft = styled.input`
 `;
 
 export const InputRight = styled.input`
+  font-weight: 500;
   display: block;
   width: 160px;
   height: 48px;
   border: none;
-  background-color: rgba(247, 247, 251, 1);
+  background-color: #f7f7fb;
   border-radius: 0 14px 14px 0;
   padding-left: 0;
   text-indent: 45px;
@@ -72,7 +79,7 @@ export const SpanLeft = styled.span`
   position: absolute;
   display: block;
   left: 20px;
-  top: 15px;
+  top: 13px;
   z-index: 9;
   font-family: 'Manrope';
   color: rgba(18, 20, 23, 1);
@@ -83,7 +90,7 @@ export const SpanRight = styled.span`
   position: absolute;
   display: block;
   left: 180px;
-  top: 15px;
+  top: 13px;
   z-index: 9;
   font-family: 'Manrope';
   color: rgba(18, 20, 23, 1);

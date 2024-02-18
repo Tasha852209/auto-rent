@@ -78,6 +78,7 @@ export default function Filter({ makes, prices, onFilterChange }) {
       <SelectContainer>
         <Label htmlFor="nameSelect">Car brand</Label>
         <Select
+          className="select"
           id="nameSelect"
           placeholder="Enter the text"
           value={selectedMake}
@@ -87,15 +88,16 @@ export default function Filter({ makes, prices, onFilterChange }) {
           styles={{
             control: styles => ({
               ...styles,
+              fontWeight: '500',
               width: '224px',
               height: '48px',
               borderColor: 'rgba(18, 20, 23, 0.2)',
               border: 'none',
               borderRadius: '14px',
               padding: '8px',
-              fontSize: '16px',
+              fontSize: '18px',
               fontFamily: 'Manrope',
-              backgroundColor: 'rgba(247, 247, 251, 1)',
+              backgroundColor: '#f7f7fb',
               appearance: 'none',
             }),
             option: (styles, { isFocused }) => {
@@ -109,6 +111,7 @@ export default function Filter({ makes, prices, onFilterChange }) {
             placeholder: styles => ({
               ...styles,
               color: 'rgba(18, 20, 23, 1)',
+              paddingBottom: '3px',
             }),
           }}
           components={{
@@ -120,6 +123,7 @@ export default function Filter({ makes, prices, onFilterChange }) {
       <SelectContainer>
         <Label htmlFor="priceSelect">Price / 1 hour</Label>
         <Select
+          className="select"
           id="priceSelect"
           placeholder="To $"
           value={
@@ -132,15 +136,16 @@ export default function Filter({ makes, prices, onFilterChange }) {
           styles={{
             control: styles => ({
               ...styles,
+              fontWeight: '500',
               width: '125',
               height: '48px',
               borderColor: 'rgba(18, 20, 23, 0.2)',
               border: 'none',
               borderRadius: '14px',
               padding: '8px',
-              fontSize: '16px',
+              fontSize: '18px',
               fontFamily: 'Manrope',
-              backgroundColor: 'rgba(247, 247, 251, 1)',
+              backgroundColor: '#f7f7fb',
               appearance: 'none',
             }),
             option: (styles, { isFocused }) => {
@@ -154,6 +159,7 @@ export default function Filter({ makes, prices, onFilterChange }) {
             placeholder: styles => ({
               ...styles,
               color: 'rgba(18, 20, 23, 1)',
+              paddingBottom: '3px',
             }),
           }}
           components={{

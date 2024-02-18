@@ -19,14 +19,14 @@ export const Wrapper = styled.div`
 
 export const Text = styled.p`
   display: flex;
-  font-size: 30px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 600;
   color: #ffffff;
   text-align: left;
   width: 460px;
   margin-left: 100px;
-  margin-top: 500px;
+  margin-top: 470px;
 `;
 
 export const Button = styled(Link)`

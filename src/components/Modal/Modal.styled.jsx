@@ -1,8 +1,12 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
+  box-sizing: border-box;
   position: relative;
-  padding: 34px;
+  padding: 40px;
+  overflow: hidden;
+  width: 541px;
+  height: 762px;
 `;
 
 export const CloseIcon = styled.button`
@@ -21,7 +25,7 @@ export const IconX = styled.img`
 
 export const Image = styled.img`
   width: 100%;
-  height: 314px;
+  height: 248px;
   display: block;
   object-fit: cover;
   border-radius: 14px;
@@ -30,6 +34,7 @@ export const Image = styled.img`
 export const Wrap = styled.div`
   margin-top: 14px;
   margin-bottom: 24px;
+  /* overflow-y: scroll; */
 `;
 
 export const TextWrap = styled.div`
